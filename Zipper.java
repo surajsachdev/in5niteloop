@@ -1,31 +1,31 @@
 import java.io.*;
 import java.util.*;
 import java.util.zip.*;
+import org.apache.commons.io.*;
 
 public class Zipper {
 	
-	public Zipper(ArrayList<File> a, HashMap<File, String> h){
-	
-		zip(a, h);
+	public Zipper(){
 	
 	}
 	
-	private void zip(ArrayList<File> al, HashMap<File, String> hm){
+	public static void zip(ArrayList<File> srcFiles, HashMap<File, String> srcFileMap, File outputFile) throws IOException{
 		
 		try{
-			byte[] buffer = new byte[1024];
-			FileOutputStream fos = new FileOutputStream("./MyFile.zip");
+			FileOutputStream fos = new FileOutputStream(outputFile);
 			ZipOutputStream zos = new ZipOutputStream(fos);
 			
-			for (File temp : al) {
+			for (File temp : srcFiles) {
 				
-				FileInputStream in = new FileInputStream(temp);
-				zos.putNextEntry(new ZipEntry(hm.get(temp)));
+				InputStream in = new FileInputStream(temp);
+				ZipEntry ze= new ZipEntry(srcFileMap.get(temp));
+				zos.putNextEntry(ze);
 				
-				int len;
+				/*int len;
 				while ((len = in.read(buffer)) > 0) {
 					zos.write(buffer, 0, len);
-				}
+				}*/
+				IOUtils.copy(in, zos);
 				
 				in.close();
 				zos.closeEntry();				
@@ -34,11 +34,11 @@ public class Zipper {
 			//remember close it
 			zos.close();
 			
-			System.out.println("Done");
+			//System.out.println("Done");
 			
 		}	
 		catch(IOException ex){
-				ex.printStackTrace();
+			throw ex;
 		}
-	}
+	}	
 }
