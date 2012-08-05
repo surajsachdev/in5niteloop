@@ -5,10 +5,6 @@ import org.apache.commons.io.*;
 
 public class Zipper {
 	
-	public Zipper(){
-	
-	}
-	
 	public static void zip(ArrayList<File> srcFiles, HashMap<File, String> srcFileMap, File outputFile) throws IOException{
 		
 		try{
