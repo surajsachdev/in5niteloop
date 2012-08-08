@@ -20,7 +20,7 @@ public class UnZipper {
 				String fileName = ze.getName();
 				File newFile = new File(destFolder + File.separator + fileName);
 				
-				System.out.println("file unzip : "+ newFile.getAbsoluteFile());
+				//System.out.println("file unzip : "+ newFile.getAbsoluteFile());
 				
 				//create all non exists folders
 				//else you will hit FileNotFoundException for compressed folder
